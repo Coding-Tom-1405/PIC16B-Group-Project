@@ -1,7 +1,6 @@
 # PIC16B-Group-Project
 
-... \n
-... \n 
-... \n
+ print("...\n...\n...")
+ 
 
 
