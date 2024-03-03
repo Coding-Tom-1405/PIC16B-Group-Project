@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+    <head>
+        <title> Level Selected </title>
+    </head>
+    <body>
+        <form action = "/select" method = "POST">
+            <h1> Please Select Your Difficulty </h1>
+            Choose a Level:
+            <br/>
+            <input type = "radio" name = "level" value = "1" checked> Level 1
+            <br/>
+            <input type = "radio" name = "level" value = "2"> Level 2
+            <br/>
+            <input type = "radio" name = "level" value = "3"> Level 3
+            <br/>
+            <input type = "submit" name = "Submit"> 
+        </form>
+    </body>
+</html>
