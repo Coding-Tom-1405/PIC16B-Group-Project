@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+    <head>
+        <title> Challenges Selected </title>
+    </head>
+    <body>
+        <form action = "/confirm" method = "POST">
+            <h1> Game Settings Chosen </h1>
+            You have selected: {{ selected }}.
+            Level: {{ selected }}
+            <br/>
+            Additional Challenges: {{ challenged }}
+            <br/>
+            You may now start your game!
+            <br/>
+            <input type = "submit" name = "Begin!"> 
+        </form>
+    </body>
+</html>
