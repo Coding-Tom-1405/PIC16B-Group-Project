@@ -4,7 +4,7 @@
         <title> Level Selected </title>
     </head>
     <body>
-        <form action = "/select" method = "POST">
+        <form action = "/reselect" method = "POST">
             <h1> Please Select Your Difficulty </h1>
             Choose a Level:
             <br/>
