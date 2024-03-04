@@ -11,21 +11,17 @@ def homepage():
 def new():
     return render_template('select2.html')
 
-@app.route('/reselect', methods=['GET', 'POST'])
+@app.route('/reselect', methods=['POST'])
 def reselect():
-    if request.method == 'POST':
-        selected = int(request.form["level"])
-        return render_template("reselect3.html", selected=selected)
-    else:
-        # Handle GET request if needed
-        pass
+    selected = int(request.form["level"])
+    return render_template("reselect3.html", selected=selected)
+    
 
-
-# @app.route('/confirm', methods=['POST'])
-# def confirm():
-#     selected = int(request.form["level"])
-#     challenged = int(request.form["challenge"])
-#     return render_template("confirm4.html", selected=selected, challenged=challenged)
+@app.route('/confirm', methods=['POST'])
+def confirm():
+    selected = int(request.form["level"])
+    challenged = int(request.form["challenge"])
+    return render_template("confirm4.html", selected=selected, challenged=challenged)
 
 if __name__ == "__main__":
     app.run(debug=True)
