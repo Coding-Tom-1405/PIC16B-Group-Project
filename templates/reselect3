@@ -8,18 +8,19 @@
         <div class="container">
             <form action="/confirm" method="POST">
                 <h1> Challenges </h1>
-                You have selected level {{ selected }}. Choose any additional challenges you want to include:
+                You have selected level {{ selected }}. <br/> Choose any additional challenges you want to include:
                 <br/>
                 <input type="hidden" name="level" value="{{ selected }}">
+                <br/>
                 <input type="radio" name="challenge" value="timer"> Timer
                 <br/>
                 <input type="radio" name="challenge" value="random_order"> Random Order
                 <br/>
                 <input type="radio" name="challenge" value="none" checked> None
                 <br/>
+                <br/>
                 <input type="submit" value="Submit" class="button"> 
             </form>
         </div>
     </body>
 </html>
-
