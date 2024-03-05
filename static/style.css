@@ -46,18 +46,6 @@ form {
     text-align: center;
 }
 
-/* Style for links */
-a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-/* Style for links when hovered  */
-a:hover {
-    text-decoration: underline;
-}
-
-
 /* Main homepage styles */
 .homepage {
     display: flex;
@@ -73,13 +61,15 @@ a:hover {
     color: #007bff;
 }
 
+/* Sane with the "button" */
 .homepage a {
-    display: inline-block;
-    background-color: #007bff;
+    padding: 10px 15px;
+    font-size: 16px;
     color: white;
-    padding: 10px 20px;
-    text-decoration: none;
+    background-color: #007bff;
+    border: none;
     border-radius: 5px;
-    margin-top: 20px;
-    font-size: 1.2em;
+    cursor: pointer;
 }
+
+
