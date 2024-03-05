@@ -16,9 +16,12 @@
                 <div style="margin-top: 20px;"></div>
                     You may now start your game!
                     <br/>
+                    <br/>
                     <input type="submit" value="Begin!" class="button"> 
                     <!-- Reselect button -->
-                    <button type="button" class="button" onclick="window.location.href='/select';">Reselect</button>
+                    <br/>
+                    <br/>
+                    <button type="button" onclick="window.location.href='/select';">Reselect</button>
                 <div>
             </form>
         </div>
