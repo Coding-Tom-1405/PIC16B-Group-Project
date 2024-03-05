@@ -2,18 +2,31 @@
 <html>
     <head>
         <title> Challenges Selected </title>
+        <style>
+            .button {
+                padding: 10px 15px;
+                font-size: 16px;
+                color: white;
+                background-color: #007bff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+        </style>
     </head>
     <body>
-        <form action = "/confirm" method = "POST">
+        <form action="/confirm" method="POST">
             <h1> Game Settings Chosen </h1>
-            You have selected: {{ selected }}.
+            You have selected:
             Level: {{ selected }}
             <br/>
-            Additional Challenges: {{ challenged }}
+            Additional Challenges: Level: {{ challenged }}
             <br/>
             You may now start your game!
             <br/>
-            <input type = "submit" name = "Begin!"> 
+            <input type="submit" value="Begin!" class="button"> 
+            <!-- Reselect button -->
+            <button type="button" class="button" onclick="window.location.href='/select';">Reselect</button>
         </form>
     </body>
 </html>
