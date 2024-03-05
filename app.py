@@ -6,7 +6,6 @@ app = Flask(__name__)
 def homepage():
     return render_template('homepage.html')
 
-
 @app.route("/select")
 def new():
     return render_template('select2.html')
