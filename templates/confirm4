@@ -20,7 +20,7 @@
             You have selected:
             Level: {{ selected }}
             <br/>
-            Additional Challenges: Level: {{ challenged }}
+            Additional Challenges: {{ challenged }}
             <br/>
             You may now start your game!
             <br/>
