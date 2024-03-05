@@ -13,11 +13,13 @@
                 <br/>
                 Additional Challenges: {{ challenged }}
                 <br/>
-                You may now start your game!
-                <br/>
-                <input type="submit" value="Begin!" class="button"> 
-                <!-- Reselect button -->
-                <button type="button" class="button" onclick="window.location.href='/select';">Reselect</button>
+                <div style="margin-top: 20px;"></div>
+                    You may now start your game!
+                    <br/>
+                    <input type="submit" value="Begin!" class="button"> 
+                    <!-- Reselect button -->
+                    <button type="button" class="button" onclick="window.location.href='/select';">Reselect</button>
+                <div>
             </form>
         </div>
     </body>
