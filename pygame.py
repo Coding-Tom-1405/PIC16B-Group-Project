@@ -1,6 +1,7 @@
 import pygame
 import random
 from glob import glob
+import os
 
 # all the possible positions for the numbers
 pos = [(x, y) for x in range(1, 8) for y in range(1, 8)] 
@@ -170,6 +171,26 @@ counter = 0
 counter_on = 1
 max_count = 100
 cards_visible = 1
+
+def get_maxscore() -> int:
+    filename = "maxscore.txt"
+    if filename in os.listdir():
+        with open(filename, "r") as file:
+            val = file.read()
+            if val == "":
+                maxscore = 0
+            else:
+                maxscore = int(val)
+    else:
+        maxscore = 0
+    return maxscore
+
+def set_score(maxscore) -> None:
+
+    with open("maxscore.txt", "w") as file:
+        file.write(str(maxscore))
+maxscore = get_maxscore()
+
 def main():
     global counter_on, counter, max_count, cards_visible
 
