@@ -5,19 +5,21 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-        <form action="/confirm" method="POST">
-            <h1> Challenges </h1>
-            You have selected level {{ selected }}. Choose any additional challenges you want to include:
-            <br/>
-            <input type="hidden" name="level" value="{{ selected }}">
-            <input type="radio" name="challenge" value="timer"> Timer
-            <br/>
-            <input type="radio" name="challenge" value="random_order"> Random Order
-            <br/>
-            <input type="radio" name="challenge" value="none" checked> None
-            <br/>
-            <input type="submit" value="Submit"> 
-        </form>
+        <div class="container">
+            <form action="/confirm" method="POST">
+                <h1> Challenges </h1>
+                You have selected level {{ selected }}. Choose any additional challenges you want to include:
+                <br/>
+                <input type="hidden" name="level" value="{{ selected }}">
+                <input type="radio" name="challenge" value="timer"> Timer
+                <br/>
+                <input type="radio" name="challenge" value="random_order"> Random Order
+                <br/>
+                <input type="radio" name="challenge" value="none" checked> None
+                <br/>
+                <input type="submit" value="Submit"> 
+            </form>
+        </div>
     </body>
 </html>
 
