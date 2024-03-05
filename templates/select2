@@ -8,7 +8,6 @@
         <div class="container">
             <form action="/reselect" method="POST">
                 <h1>Please Select Your Difficulty</h1>
-                <div class="form-group">
                     Choose a Level:
                     <br/>
                     <input type="radio" name="level" value="1" checked> Level 1
@@ -16,11 +15,12 @@
                     <input type="radio" name="level" value="2"> Level 2
                     <br/>
                     <input type="radio" name="level" value="3"> Level 3
-                </div>
-                <div style="margin-top: 20px;">
+                    <br/>
+                    <br/>
                     <input type="submit" value="Submit" class="button">
-                </div>
             </form>
         </div>
     </body>
 </html>
+
+
