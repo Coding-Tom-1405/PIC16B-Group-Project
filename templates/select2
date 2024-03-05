@@ -2,6 +2,7 @@
 <html>
     <head>
         <title> Level Selected </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
         <form action = "/reselect" method = "POST">
