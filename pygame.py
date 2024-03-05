@@ -80,7 +80,6 @@ def mouse_collision(sprite):
     # Check the collision only when conter is off
     x, y = pygame.mouse.get_pos()
     if sprite.rect.collidepoint(x, y):
-        play()#"click")
         # bgd.fill((0, 255, 0))
         # sprite.image.blit(bgd, (0, 0))
         num_order.append(sprite.number)
@@ -127,42 +126,6 @@ def mouse_collision(sprite):
         g.update()
         screen.fill((0,0,0))
         
-
-
-######################
-#     sound          #
-######################
-def init():
-    "Initializing pygame and mixer"
-#     pygame.mixer.pre_init(44100, -16, 1, 512)
-    pygame.init()
-#     pygame.mixer.quit()
-#     pygame.mixer.init(22050, -16, 2, 512)
-#     pygame.mixer.set_num_channels(32)
-    # Load all sounds
-#     lsounds = glob("sounds\\*.mp3")
-#     print(lsounds)
-#     # Dictionary with all sounds, keys are the name of wav
-#     sounds = {}
-#     for sound in lsounds:
-#         sounds[sound.split("\\")[1][:-4]] = pygame.mixer.Sound(f"{sound}")
-#     return sounds
-# =========================== ([ sounds ]) ============
-
-# sounds = init()
-
-# base = pygame.mixer.music
-# def soundtrack(filename, stop=0):
-#     "This load a base from sounds directory"
-#     base.load(filename)
-#     if stop == 1:
-#         base.stop()
-#     else:
-#         base.play(-1)
-
-def play():#sound):
-#     pygame.mixer.Sound.play(sounds[sound])
-    return None
 def squares_init():
     for i in range(1, 4):
         g.add(Square(i))
@@ -208,8 +171,6 @@ def main():
             text = font.render(" Time: " + str(max_count - counter), 1, (255, 255, 255))
             screen.blit(text, (200, 0))
             counter += 1
-            if counter % 4 == 0:
-                play()#"click")
         for event in pygame.event.get():
             # ========================================= QUIT
             if event.type == pygame.QUIT:
