@@ -4,8 +4,8 @@ app = Flask(__name__)
 
 @app.route("/")
 def homepage():
-    return """<h1> Welcome to the <b> Chimp Test </b> Game!</h1>
-   <a href="/select">Start Game!</a>"""
+    return render_template('homepage.html')
+
 
 @app.route("/select")
 def new():
