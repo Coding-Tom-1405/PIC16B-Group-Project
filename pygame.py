@@ -2,6 +2,7 @@ import pygame
 import random
 from glob import glob
 import os
+import csv
 
 # all the possible positions for the numbers
 coord = [(x, y) for x in range(1, 10) for y in range(1, 10)] 
@@ -17,7 +18,7 @@ def game_init():
  
     # Changing surface color
     screen.fill((0,0,255))
-#     pygame.display.flip()
+
 
 
 class Square(pygame.sprite.Sprite):
@@ -67,7 +68,7 @@ level = 1
 incorrect_guesses = 0
 # This covers the numbers...
 bgd = pygame.Surface((80, 80))
-# sprite_coordinate = []
+
 
 def hide_cards():
     for sprite in square_group:
@@ -84,7 +85,6 @@ def memory(sprite):
     # Check the collision only when conter is off
     x, y = pygame.mouse.get_pos() 
     if sprite.rect.collidepoint(x, y):
-#         play()#"click")
         num_list.append(sprite.number)
         sprite.rect = pygame.Rect(-80, -80, 80, 80)
 
@@ -94,21 +94,20 @@ def memory(sprite):
             print("incorrect")
             reset_coord()
             incorrect_guesses += 1
-            if incorrect_guesses >= 3:
-                loop = 0  # Terminate the game loop
             num_list = []
             timer_on = 1
             square_group.update()
             screen.fill((255, 0, 0))  # Fill the screen with red color
             pygame.display.flip()  # Update the display
             pygame.time.wait(500)  # Wait for 500 milliseconds
-  
+            if incorrect_guesses >= 3:
+                loop = 0  # Terminate the game loop
+            return
 
 
 
 
     if len(num_list) == len(square_group):
-        # =========================== YOU GUESSED ========== 
         win = num_list == [str(squares.number) for squares in square_group]
         if win:   
             print(str(level))
@@ -147,40 +146,10 @@ def memory(sprite):
         
 
 
-######################
-#     sound          #
-######################
 def init():
-    "Initializing pygame and mixer"
-#     pygame.mixer.pre_init(44100, -16, 1, 512)
     pygame.init()
-#     pygame.mixer.quit()
-#     pygame.mixer.init(22050, -16, 2, 512)
-#     pygame.mixer.set_num_channels(32)
-    # Load all sounds
-#     lsounds = glob("sounds\\*.mp3")
-#     print(lsounds)
-#     # Dictionary with all sounds, keys are the name of wav
-#     sounds = {}
-#     for sound in lsounds:
-#         sounds[sound.split("\\")[1][:-4]] = pygame.mixer.Sound(f"{sound}")
-#     return sounds
-# =========================== ([ sounds ]) ============
-
-# sounds = init()
-
-# base = pygame.mixer.music
-# def soundtrack(filename, stop=0):
-#     "This load a base from sounds directory"
-#     base.load(filename)
-#     if stop == 1:
-#         base.stop()
-#     else:
-#         base.play(-1)
-
-#def play():#sound):
-#     pygame.mixer.Sound.play(sounds[sound])
     return None
+    
 def squares_init():
     for i in range(1, 4):
         square_group.add(Square(i))
@@ -203,15 +172,23 @@ def get_maxlevel() -> int:
         maxlevel = 0
     return maxlevel
 
-def set_maxlevel(maxlevel) -> None:
-    with open("maxlevel.txt", "w") as file:
-        file.write(str(maxlevel))
-
 def update_maxlevel(level):
     maxlevel = get_maxlevel()
     if level > maxlevel:
-        set_maxlevel(level)
+        with open("maxlevel.txt", "w") as file:
+            file.write(str(maxlevel))
 
+def save_game_data(game_data):
+    # Check if the file is empty
+    is_empty = os.path.getsize("game_data.csv") == 0
+
+    with open("game_data.csv", "a", newline="") as csvfile:
+        writer = csv.writer(csvfile)
+        if is_empty:  # Write the header only if the file is empty
+            writer.writerow(["Level"])  # Write header
+        for data in game_data:
+            writer.writerow([data["level"]])
+            
 def main():
     global timer_on, counter, max_timer, cards_visible, loop
 
@@ -220,8 +197,7 @@ def main():
     clock = pygame.time.Clock()
 
     loop = 1
-    # pygame.mouse.set_visible(False)
-#     soundtrack("sounds/soave.ogg")
+
     while loop:
         screen.fill((0,0,255))
         text = font.render("Level: " + str(level), 1, (255, 255, 255))
@@ -230,8 +206,6 @@ def main():
             text = font.render(" Time: " + str(max_timer - counter), 1, (255, 255, 255))
             screen.blit(text, (200, 0))
             counter += 1
-#             if counter % 4 == 0:
-#                 play()#"click")
         for event in pygame.event.get():
             # ========================================= QUIT
             if event.type == pygame.QUIT:
@@ -257,10 +231,16 @@ def main():
             counter = 0
             timer_on = 0
 
-                # pygame.mouse.set_visible(True)
+
         pygame.display.update()
         clock.tick(20)
-                
+        
+    # Append current level data to game data
+    game_data.append({"level": level}) 
+
+    # Save game data to CSV
+    save_game_data(game_data)
+    
     pygame.quit()
 
     
