@@ -87,7 +87,6 @@ def memory(x, y):
 
     for square in all_sprites:
         if square.x <= x < square.x + 80 and square.y <= y < square.y + 80:
-            #         play()#"click")
             num_list.append(square.number)
             square.x = -80
             square.y = -80
@@ -143,41 +142,6 @@ def memory(x, y):
         print("-"*25)        
         
 
-
-######################
-#     sound          #
-######################
-# def init():
-#     "Initializing pygame and mixer"
-#     pygame.mixer.pre_init(44100, -16, 1, 512)
-#     pygame.init()
-#     pygame.mixer.quit()
-#     pygame.mixer.init(22050, -16, 2, 512)
-#     pygame.mixer.set_num_channels(32)
-    # Load all sounds
-#     lsounds = glob("sounds\\*.mp3")
-#     print(lsounds)
-#     # Dictionary with all sounds, keys are the name of wav
-#     sounds = {}
-#     for sound in lsounds:
-#         sounds[sound.split("\\")[1][:-4]] = pygame.mixer.Sound(f"{sound}")
-#     return sounds
-# =========================== ([ sounds ]) ============
-
-# sounds = init()
-
-# base = pygame.mixer.music
-# def soundtrack(filename, stop=0):
-#     "This load a base from sounds directory"
-#     base.load(filename)
-#     if stop == 1:
-#         base.stop()
-#     else:
-#         base.play(-1)
-
-#def play():#sound):
-#     pygame.mixer.Sound.play(sounds[sound])
-#     return None
 def squares_init():
     global square_batch
     for i in range(1, 4):
