@@ -13,22 +13,21 @@ def game_init():
     
     window = pyglet.window.Window(800, 800, caption="Chimp Memory Test")
     font = pyglet.font.load("Times New Roman", 35)
-
-    # Enable blending for proper rendering of text
-    pyglet.gl.glEnable(pyglet.gl.GL_BLEND)
-    
+ 
     # Changing surface color
     glClearColor(0, 0, 1, 1)  # Set background color to blue (R=0, G=0, B=1)
     window.clear()  # Clears the window with the specified background color
 
-all_sprites = []
+def draw_list(list):
+    for l in list:
+        l.draw()
 
 class Square(pyglet.sprite.Sprite):
      
     def __init__(self, number, batch, make_image = True):
         super(Square, self).__init__(img = pyglet.image.SolidColorImagePattern(color=(255, 255, 255, 255)).create_image(80, 80), batch = batch)
         self.number = number
-        all_sprites.append(self)
+        square_list.append(self)
         self.make_image()
 
         
@@ -45,69 +44,85 @@ class Square(pyglet.sprite.Sprite):
         return x, y
     
     def make_image(self):
-        print("Creating image for square", self.number)
+        # print("Creating image for square", self.number)
         self.x, self.y = self.random_coord()
         self.number = str(self.number)
         self.text = pyglet.text.Label(self.number,
                                       font_name="Times New Roman",
                                       font_size=35,
-                                      color=(0, 0, 0, 255),  # Adjusted color
-                                      x=self.x + 40,
-                                      y=self.y + 40,
+                                      color=(0, 0, 0, 255),
+                                      x=self.x + 40,  # Adjusted positioning
+                                      y=self.y + 40,  # Adjusted positioning
                                       anchor_x='center',
                                       anchor_y='center'
                                      )
-        print("Creating text label for square", self.number)
-
+        # print("Creating text label for square", self.number)
     
     def draw(self):
         super(Square, self).draw()
         self.text.draw()
-        print("Drawing square", self.number)
+        # print("Drawing square", self.number)
 
-
+global square_list
+square_list = []
 square_batch = pyglet.graphics.Batch()
+
 num_list = []
 level = 1
 incorrect_guesses = 0
 
 
-def hide_cards():
-    for sprite in all_sprites:
-        sprite.opacity = 0
         
 def reset_coord():
     global coord, original_coord
     coord = original_coord[:]  # Reset pos to its original state        
 
 
-def memory(x, y):
-    global num_list, level, timer_on, max_timer, cards_visible, incorrect_guesses, loop
+def memory(x, y, button):
+    global num_list, square_list, level, timer_on, max_timer, cards_visible, incorrect_guesses, loop
+    clicked_square  = None
     # Check the collision only when conter is off
-
-    for square in all_sprites:
+        
+    for square in square_list:
         if square.x <= x < square.x + 80 and square.y <= y < square.y + 80:
+            #         play()#"click")
+
             num_list.append(square.number)
             square.x = -80
             square.y = -80
-        # Check if you are wrong as you type
-        if square.number != str(len(num_list)):
-            print(str(level))
-            print("incorrect")
-            reset_coord()
-            incorrect_guesses += 1
-            num_list = []
-            timer_on = 1
-            square_batch.draw()
-            glClearColor(1.0, 0.0, 0.0, 1.0)  # Clear with red color
-            window.clear()
-            if incorrect_guesses >= 3:
-                loop = False  # Terminate the game loop
+            clicked_square = square
+
+            square.opacity = 0
+            square.text = pyglet.text.Label()
+          # No square was clicked
+            
+            # Check if you are wrong as you type
+            if clicked_square.number != str(len(num_list)):
+                print(str(level))
+                print("incorrect 1")
+                reset_coord()
+                incorrect_guesses += 1
+                num_list = []
+                timer_on = 1
+                draw_list(square_list)
+        
+
+                glClearColor(255, 0.0, 0.0, 255)  # Clear with red color
+                window.clear()
+                
+                if incorrect_guesses >= 3:
+                    loop = False  # Terminate the game loop
+                return
+
+    if clicked_square is None:
             return
 
-
-    if len(num_list) == len(all_sprites):
-        win = num_list == [str(square.number) for square in all_sprites]
+    print(len(num_list))
+    print("----")
+    print(len(square_list))
+    print("----------")
+    if len(num_list) == len(square_list):
+        win = num_list == [str(square.number) for square in square_list]
         if win:
             print(str(level))
             level += 1
@@ -115,9 +130,12 @@ def memory(x, y):
             reset_coord()
     
             num_list = []
+            square_list = []
             # Add new squares with make_image=True
-            for i in range(len(all_sprites) + 1, len(all_sprites) + 4):
+            print(len(num_list))
+            for i in range(1, level+3):
                 square = Square(i, batch = square_batch)
+                print("adding to batch")
                 square.make_image()  # Call make_image for each new square
             timer_on = 1
             max_timer += 10
@@ -127,7 +145,7 @@ def memory(x, y):
             
         else:
             print(str(level))
-            print("incorrect")
+            print("incorrect 2")
             reset_coord()
             incorrect_guesses += 1
             if incorrect_guesses >= 3:
@@ -141,12 +159,10 @@ def memory(x, y):
         square_batch.draw()
         print("-"*25)        
         
-
 def squares_init():
     global square_batch
     for i in range(1, 4):
         square = Square(i, batch = square_batch)
-        square.make_image()
 
 
 
@@ -190,8 +206,13 @@ def save_game_data(game_data):
 def main():
     global timer_on, counter, max_timer, cards_visible, loop, game_data
 
+    # print("game_init")
     game_init()
+    # print("---")
+
+    # print("squares_init")
     squares_init()
+    # print("---")
     clock = pyglet.clock.Clock()
 
     loop = True
@@ -202,6 +223,7 @@ def main():
 
     @window.event
     def on_draw():
+        #print("on draw called")
         pyglet.gl.glClearColor(0, 0, 1, 1)  # Set clear color to blue
         window.clear()  # Clear the window with the specified background color
         level_label = pyglet.text.Label("Level: " + str(level),
@@ -210,6 +232,9 @@ def main():
                                         x=0,
                                         y=750
                                        )
+
+        for square in square_list:
+            square.draw()
         level_label.draw()
         if timer_on:
             time_label = pyglet.text.Label(" Time: " + str(max_timer - counter),
@@ -219,8 +244,7 @@ def main():
                                            y=750
                                           )
             time_label.draw()
-        square_batch.draw()  # Draw the square batch
-
+          # Draw the square batch
 
 
        
@@ -228,11 +252,8 @@ def main():
     def on_mouse_press(x, y, button, modifiers):
         global counter, timer_on, loop
         if button == pyglet.window.mouse.LEFT:
-            # Click mouse and stop the timer and hide the cards
-            hide_cards()
-            timer_on = False
-            counter = 0
-            memory(x, y)
+            # Pass clicked coordinates to memory function
+            memory(x, y, button)
     
     def update(dt):
         global counter, timer_on, loop
@@ -254,6 +275,7 @@ def main():
     update_maxlevel(level)
 
 main()
+
 
 
 
