@@ -1,13 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <title>Welcome to the Chimp Test Game!</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    </head>
-    <body>
-        <div class="homepage">
-            <h1>Welcome to the Chimp Test Game!</h1>
-            <a href="/select">Start Game!</a>
+<head>
+    <title>Welcome to the Chimp Test Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="welcome-container">
+        <h1>Welcome to the Chimp Test Game</h1>
+        <p class="game-description">The chimpanzee memory test is a cognitive task designed to assess the memory capabilities of chimpanzees. In this test, participants are presented with a sequence number, which they must remember and recall in the correct order. The test aims to evaluate the capacity of the participants' short term memory.</p>
+        <div class="tab-container">
+        <div class="tab-container">
+            <!-- Updated Play Game tab with card hover effect -->
+            <div class="card">
+                <a href="/select" class="image-box">
+                    <img src="{{ url_for('static', filename='images/image1.png') }}" alt="Play Game">
+                </a>
+                <div class="content">
+                    <h2>Play Game</h2>
+                </div>
+            </div>
+            
+            <!-- Other tabs -->
+            <div class="card">
+                <a href="/select" class="image-box">
+                    <img src="{{ url_for('static', filename='images/image2.png') }}" alt="Game Stats">
+                </a>
+                <div class="content">
+                    <h2>Game Stats</h2>
+                </div>
+            </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>
+
