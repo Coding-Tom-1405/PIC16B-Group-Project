@@ -1,6 +1,7 @@
 import pyglet
 from pyglet.gl import glClearColor
 import random
+import time
 import os
 import csv
 
@@ -34,7 +35,6 @@ class Square(pyglet.sprite.Sprite):
     def random_coord(self):
         global coord  # Access the global coord list
         if not coord:
-            # Regenerate coord list if it's empty
             coord.extend(original_coord)
         coordinates = random.choice(coord)
         x, y = coordinates
@@ -44,7 +44,6 @@ class Square(pyglet.sprite.Sprite):
         return x, y
     
     def make_image(self):
-        # print("Creating image for square", self.number)
         self.x, self.y = self.random_coord()
         self.number = str(self.number)
         self.text = pyglet.text.Label(self.number,
@@ -56,12 +55,12 @@ class Square(pyglet.sprite.Sprite):
                                       anchor_x='center',
                                       anchor_y='center'
                                      )
-        # print("Creating text label for square", self.number)
+
     
     def draw(self):
         super(Square, self).draw()
         self.text.draw()
-        # print("Drawing square", self.number)
+
 
 global square_list
 square_list = []
@@ -70,7 +69,6 @@ square_batch = pyglet.graphics.Batch()
 num_list = []
 level = 1
 incorrect_guesses = 0
-
 
         
 def reset_coord():
@@ -85,42 +83,44 @@ def memory(x, y, button):
         
     for square in square_list:
         if square.x <= x < square.x + 80 and square.y <= y < square.y + 80:
-            #         play()#"click")
 
             num_list.append(square.number)
             square.x = -80
             square.y = -80
             clicked_square = square
-
             square.opacity = 0
-            square.text = pyglet.text.Label()
-          # No square was clicked
+            for square in square_list:
+                square.text = pyglet.text.Label()
+
             
             # Check if you are wrong as you type
             if clicked_square.number != str(len(num_list)):
                 print(str(level))
-                print("incorrect 1")
                 reset_coord()
+                cards_visible = 1
                 incorrect_guesses += 1
+                print("Strikes: ", incorrect_guesses)
                 num_list = []
                 timer_on = 1
-                draw_list(square_list)
-        
+                square_list = []
+                for i in range(1, level+3):
+                    square = Square(i, batch=square_batch)
+                    square.make_image()
 
-                glClearColor(255, 0.0, 0.0, 255)  # Clear with red color
+                glClearColor(1.0, 0.0, 0.0, 1.0)  # Clear with red color
                 window.clear()
+                window.flip()
+                time.sleep(1)
+ 
                 
                 if incorrect_guesses >= 3:
+                    print("Game Over!")
                     loop = False  # Terminate the game loop
-                return
+                    return
 
     if clicked_square is None:
             return
 
-    print(len(num_list))
-    print("----")
-    print(len(square_list))
-    print("----------")
     if len(num_list) == len(square_list):
         win = num_list == [str(square.number) for square in square_list]
         if win:
@@ -128,37 +128,52 @@ def memory(x, y, button):
             level += 1
             print("correct")
             reset_coord()
-    
+            cards_visible = 1
             num_list = []
             square_list = []
-            # Add new squares with make_image=True
-            print(len(num_list))
             for i in range(1, level+3):
                 square = Square(i, batch = square_batch)
-                print("adding to batch")
                 square.make_image()  # Call make_image for each new square
             timer_on = 1
             max_timer += 10
             cards_visible = 1
             glClearColor(0.0, 1.0, 0.0, 1.0)  # Clear with green color
             window.clear()
+            window.flip()
+            time.sleep(1)
+
             
         else:
             print(str(level))
-            print("incorrect 2")
             reset_coord()
+            cards_visible = 1
             incorrect_guesses += 1
+            print("Strikes: ", incorrect_guesses)
             if incorrect_guesses >= 3:
+                print("Game Over!")
                 loop = False  # Terminate the game loop
+                return
             num_list = []
             timer_on = 1
-            cards_visible = 1
+            
+            square_list = []
+            for i in range(1, level+3):
+                square = Square(i, batch=square_batch)
+                square.make_image()
             glClearColor(1.0, 0.0, 0.0, 1.0)  # Clear with red color
             window.clear()
+            window.flip()
+            time.sleep(1)
+            window.clear()
+            window.flip()
            
         square_batch.draw()
         print("-"*25)        
-        
+
+def clear_window(dt):
+    window.clear()
+    window.flip()
+    
 def squares_init():
     global square_batch
     for i in range(1, 4):
@@ -206,24 +221,17 @@ def save_game_data(game_data):
 def main():
     global timer_on, counter, max_timer, cards_visible, loop, game_data
 
-    # print("game_init")
     game_init()
-    # print("---")
-
-    # print("squares_init")
     squares_init()
-    # print("---")
     clock = pyglet.clock.Clock()
 
     loop = True
     game_data = []
-#     soundtrack("sounds/soave.ogg")
 
 
 
     @window.event
     def on_draw():
-        #print("on draw called")
         pyglet.gl.glClearColor(0, 0, 1, 1)  # Set clear color to blue
         window.clear()  # Clear the window with the specified background color
         level_label = pyglet.text.Label("Level: " + str(level),
@@ -262,10 +270,17 @@ def main():
             if counter >= max_timer:
                 counter = 0
                 timer_on = False
-#                 loop = False
     pyglet.clock.schedule_interval(update, 1.0 / 60)
-    pyglet.app.run()
     
+    while loop:
+        pyglet.clock.tick()  # Ensures a smooth frame rate
+        window.dispatch_events()  # Dispatches window events
+        window.clear()  # Clears the window
+        on_draw()  # Calls the draw function
+        window.flip()  # Displays the updated window
+
+
+    print("You Score: ", level)
     # Append current level data to game data
     game_data.append({"level": level})
 
@@ -275,7 +290,6 @@ def main():
     update_maxlevel(level)
 
 main()
-
 
 
 
