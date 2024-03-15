@@ -6,27 +6,25 @@ app = Flask(__name__)
 def homepage():
     return render_template('homepage.html')
 
-@app.route("/select")
-def new():
-    return render_template('select2.html')
 
-@app.route('/reselect', methods=['POST'])
-def reselect():
-    selected = int(request.form["level"])
-    return render_template("reselect3.html", selected=selected)
-    
+@app.route("/select", methods=['GET', 'POST'])
+def select():
+    if request.method == 'POST':
+        selected_level = request.form.get("level")
+        selected_challenge = request.form.get("challenge")
+        return "Game started with Level: {} and Challenge: {}".format(selected_level, selected_challenge)
+    return render_template('select.html')
 
-@app.route('/confirm', methods=['POST'])
-def confirm():
-    selected = request.form.get("level")  # Captures the level selected
-    challenged = request.form.get("challenge")  # Captures the challenge selected
-    # Convert challenge values to a user-friendly format, if necessary
-    challenge_text = {
-        "timer": "Timer",
-        "random_order": "Random Order",
-        "none": "None"
-    }.get(challenged, "None")  # Default to "None" if for some reason the challenge is not in the dictionary
-    return render_template("confirm4.html", selected=selected, challenged=challenge_text)
+
+# @app.route("/play")
+# def play():
+#     # Render a template for the web game
+#     return render_template("play.html")
+
+@app.route('/stats')
+def stats():
+    return render_template('stats.html') 
+
 
 
 if __name__ == "__main__":
