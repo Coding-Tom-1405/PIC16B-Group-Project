@@ -67,13 +67,6 @@
         window.location.href='http://localhost:8000';
     }
 
-    document.querySelectorAll('.box ul li').forEach(item => {
-        item.addEventListener('click', function() {
-            let siblings = this.parentNode.querySelectorAll('li');
-            siblings.forEach(sib => sib.classList.remove('selected'));
-            this.classList.add('selected');
-        });
-    });
 </script>
 </body>
 </html>
