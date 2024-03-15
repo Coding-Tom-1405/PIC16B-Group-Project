@@ -10,20 +10,21 @@ body, html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-top: 75;
     height: 100%;   
 }
 
 .tab-container {
     display: flex;
     gap: 2rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 /* Styles for the card hover effect */
 .card {
     width: 400px;
-    aspect-ratio: 1 / 0.7;
+    height: 300px;
     border-radius: 8px;
     position: relative;
     overflow: hidden; 
@@ -85,10 +86,377 @@ body, html {
 
 
 .game-description {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     max-width: 800px; 
-    margin: 0 auto; 
+    margin: 0; 
     padding: 1rem 0; 
-    font-size: 1rem; 
-    line-height: 1.5; 
+    line-height: 1.5;
+    color: rgb(100, 100, 100);
+}
+
+
+/* Title animation styles */
+.title span {
+    --duration: 1s;
+    --delay: var(--delay, 0s); 
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    padding: 5px 0;
+    color: transparent; 
+    animation: reveal 1s calc(var(--delay) + var(--duration)) forwards;
+    font-size: 3rem;
+}
+
+.title span::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color:	#888686; 
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: slideIn var(--duration) var(--delay) forwards,
+               slideOut 1s calc(var(--delay) + var(--duration)) forwards;
+}
+
+/* For the animations */
+@keyframes reveal {
+    to {
+        color: #666; 
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(105%); 
+    }
+}
+
+
+/* For the select page */
+.main.center {
+    display: flex;
+    justify-content: center;
+    align-items: start; 
+    height: auto; 
+    padding-top: 50px; 
+}
+
+/* Select Level and Challenges box */
+.box {
+    width: 200px;
+    margin: 20px;
+    margin-top: 0; 
+    background: transparent; 
+    border-radius: 20px;
+    box-shadow: none; 
+    overflow: hidden;
+}
+
+.box h2 {
+    color: #555;
+    text-align: center;
+    padding: 1px;
+    font-size: 28px;
+}
+
+.box ul {
+    list-style-type: none; 
+    padding: 0;
+    margin: 0; 
+}
+
+.box ul li {
+    width: 100%;
+    padding: 15px;
+    color: #222; 
+    font-weight: bold; 
+    background: transparent; 
+    padding: 15px 30px; 
+    cursor: pointer;
+    transition: transform 0.4s, box-shadow 0.4s; 
+    position: relative;
+    border: none; 
+}
+
+.box ul li::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 100%;
+    background: #ffffffc1; 
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease-in-out;
+}
+
+.box ul li::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #ffffffc1; 
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease-in-out;
+}
+
+.box ul li:hover::before, .box ul li:hover::after {
+    transform: scaleX(1);
+}
+
+.box ul li.selected::before, .box ul li.selected::after {
+    transform: scaleX(1);
+}
+
+.box ul li.selected {
+    box-shadow: 0 0 10px #ffffffc1; 
+}
+
+.start-button-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+button {
+    padding: 10px 30px;
+    background-color: #ffffffc1; 
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #ffffffc1; 
+}
+
+
+
+
+
+
+
+/* Smaller card */
+.index-container {
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 30%;   
+}
+
+.card-index {
+    width: 400px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden; 
+    cursor: pointer; 
+    aspect-ratio: 1 / 0.40;
+}
+
+.card-index .image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s ease-in-out;
+}
+
+.card-index::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid white;
+    border-radius: inherit;
+    opacity: 0;
+    transition: 0.4s ease-in-out;
+}
+
+.card-index:hover img {
+    filter: grayscale(1) brightness(0.4);
+}
+
+.card-index:hover::after {
+    opacity: 1;
+    inset: 20px;
+}
+
+.card-index .content {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); 
+    color: white;
+    width: 100%;
+    padding: 30px;
+    transition: 0.5s;
+    transform: translateY(100%);
+}
+
+.card-index:hover .content {
+    transform: translateY(0);
+    transition: 0.5s;
+}
+
+.card-index:hover .content h2 {
+    transition: 0.5s;
+    transform: scale(1);
+    opacity: 1;
+}
+
+.card-index:hover .content p {
+    transition: 0.5s;
+    opacity: 1;
+}
+
+
+
+/* Navigation Bar */
+nav {
+    background: #333; 
+    padding: 1rem; 
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-link {
+    color: #fff; 
+    padding: 0.5rem; 
+    text-decoration: none; 
+    position: relative;
+    transition: color 0.3s ease; 
+}
+
+.menu-link:hover {
+    color: #ccc; 
+}
+
+.menu-link::before {
+    content: "";
+    position: absolute;
+    bottom: 0; 
+    left: 0;
+    width: 100%; 
+    height: 2px; 
+    background: #fff; 
+    transform: scaleX(0); 
+    transition: transform 0.6s ease; 
+}
+
+.menu-link:hover::before {
+    transform: scaleX(1); 
+}
+
+
+/* Input Your Name box */
+.input-wrapper {
+    position: relative; 
+    font-size: 18px;
+    color: #222; 
+    background: #eeeeee; 
+    top: 50%; 
+    right: 0; 
+    transform: translateY(-50%); 
+    box-shadow: 3px 1px 0px #222;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 2px solid #222;
+    background: #eeeeee;
+    font-size: 20px;
+    color: #222;
+}
+
+.input-wrapper label {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    color: #222;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+.input-wrapper input:focus ~ label,
+.input-wrapper input:valid ~ label {
+    bottom: 110%;
+    font-size: 16px;
+    color: #222;
+}
+
+.input-wrapper input:focus ~ .underline,
+.input-wrapper input:valid ~ .underline {
+    transform: scaleX(1);
+}
+
+
+.input-and-button-container {
+    margin-left: 50px;
+    margin-top: 75px;
+
+}
+
+
+/* Start Game button */
+.btn {
+    padding: 10px 26px;
+    background-color: #eeeeee;
+    border: 3px solid #111827;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s;
+    box-shadow: 6px 6px 0px #111827;
+    font-weight: bold; 
+    font-size: 16px;
+}
+
+.btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: #111827;
+    border-radius: inherit;
+    translate: 6px 6px;
+    transition: 0.25s;
+    z-index: -1;
+}
+
+.btn:hover::after {
+    translate: 0;
+}
+
+.btn:hover {
+    background-color: #222;
+    color: #eeeeee;
+    /* Rest of your hover styles */
 }
