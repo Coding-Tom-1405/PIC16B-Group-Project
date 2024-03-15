@@ -1,0 +1,79 @@
+{% include 'menu.html' %}
+
+<!doctype html>
+<html>
+<head>
+    <title>Select Game Options</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="index-container">
+        <div class="tab-container">
+            <a href="{{ url_for('select') }}" class="card-index">
+                <div class="image-box">
+                    <img src="{{ url_for('static', filename='images/image1.png') }}" alt="Play Game">
+                </div>
+                <div class="content">
+                    <h2>Play Game</h2>
+                </div>
+            </a>
+            <a href="{{ url_for('stats') }}" class="card-index">
+                <div class="image-box">
+                    <img src="{{ url_for('static', filename='images/image2.png') }}" alt="Game Stats">
+                </div>
+                <div class="content">
+                    <h2>Game Stats</h2>
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+
+<body>
+<div class="main center">
+    <div class="box">
+        <h2>Select Level</h2>
+        <ul>
+            <li data-value="1" class="level-option">Level 1</li>
+            <li data-value="2" class="level-option">Level 2</li>
+            <li data-value="3" class="level-option">Level 3</li>
+        </ul>
+    </div>
+    <div class="box">
+        <h2>Challenges</h2>
+        <ul>
+            <li data-value="timer" class="challenge-option">Timer</li>
+            <li data-value="none" class="challenge-option selected">None</li>
+        </ul>
+    </div>
+
+    <div class="input-and-button-container">
+        <div class="input-wrapper">
+            <input type="text" id="username" required autocomplete="off"/>
+            <label for="username">Your Name</label>
+            <div class="underline"></div>
+        </div>
+        <div class="start-button-container">
+            <button class="btn" onclick="submitSelection()">Start Game</button>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function submitSelection() {
+        window.location.href='http://localhost:8000';
+    }
+
+    document.querySelectorAll('.box ul li').forEach(item => {
+        item.addEventListener('click', function() {
+            let siblings = this.parentNode.querySelectorAll('li');
+            siblings.forEach(sib => sib.classList.remove('selected'));
+            this.classList.add('selected');
+        });
+    });
+</script>
+</body>
+</html>

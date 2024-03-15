@@ -1,0 +1,42 @@
+{% include 'menu.html' %}
+
+<!doctype html>
+<html>
+<head>
+    <title>Select Game Options</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="index-container">
+        <div class="tab-container">
+            <a href="{{ url_for('select') }}" class="card-index">
+                <div class="image-box">
+                    <img src="{{ url_for('static', filename='images/image1.png') }}" alt="Play Game">
+                </div>
+                <div class="content">
+                    <h2>Play Game</h2>
+                </div>
+            </a>
+            <a href="{{ url_for('select') }}" class="card-index">
+                <div class="image-box">
+                    <img src="{{ url_for('static', filename='images/image2.png') }}" alt="Game Stats">
+                </div>
+                <div class="content">
+                    <h2>Game Stats</h2>
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Play Game</title>
+</head>
+<body>
+    <button onclick="window.location.href='http://localhost:8000'">Launch Game</button>
+</body>
+</html>
