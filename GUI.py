@@ -395,7 +395,13 @@ def memory(sprite):
             pygame.display.flip()
             pygame.time.wait(500)
             if incorrect_guesses >= 3:
+                screen.fill((255, 255, 255))
+                hide_cards()
+                text = font.render("GAME OVER!", 1, (0, 0, 0))
+                screen.blit(text, (400, 400))
+                save_game_data(game_data) 
                 loop = 0
+                
             level_start_time = pygame.time.get_ticks()  # Reset start time for the next attempt
             return
 
@@ -427,6 +433,11 @@ def memory(sprite):
             reset_coord()
             incorrect_guesses += 1
             if incorrect_guesses >= 3:
+                screen.fill((255, 255, 255))
+                hide_cards()
+                text = font.render("GAME OVER!", 1, (0, 0, 0))
+                screen.blit(text, (400, 400))
+                save_game_data(game_data) 
                 loop = 0
             num_list = []
             timer_on = 1
@@ -523,11 +534,9 @@ async def main():
             #hide_cards()
             counter = 0
             timer_on = 0
-        clock.tick(20)
         pygame.display.update()
+        clock.tick(20)
         await asyncio.sleep(0)
-
-    save_game_data(game_data)  # Save game data at the end of the session
     pygame.quit()
 
 asyncio.run(main())
