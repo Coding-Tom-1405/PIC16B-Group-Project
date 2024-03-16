@@ -157,15 +157,15 @@ body, html {
     padding-top: 50px; 
 }
 
-/* Select Level and Challenges box */
+/* Select Level and Challenges box*/
 .box {
     width: 200px;
     margin: 20px;
     margin-top: 0; 
     background: transparent; 
-    border-radius: 20px;
-    box-shadow: none; 
     overflow: hidden;
+    font-size: 1.1em;
+    color: #444;
 }
 
 .box h2 {
@@ -175,6 +175,7 @@ body, html {
     font-size: 28px;
 }
 
+/*
 .box ul {
     list-style-type: none; 
     padding: 0;
@@ -230,7 +231,7 @@ body, html {
 
 .box ul li.selected {
     box-shadow: 0 0 10px #ffffffc1; 
-}
+} */
 
 .start-button-container {
     display: flex;
@@ -375,7 +376,7 @@ nav ul {
 
 
 /* Input Your Name box */
-.input-wrapper {
+/* .input-wrapper {
     position: relative; 
     font-size: 18px;
     color: #222; 
@@ -416,12 +417,12 @@ nav ul {
 .input-wrapper input:focus ~ .underline,
 .input-wrapper input:valid ~ .underline {
     transform: scaleX(1);
-}
-
+} 
+*/
 
 .input-and-button-container {
-    margin-left: 50px;
-    margin-top: 75px;
+    margin-left: 20px;
+    margin-top: 0px;
 
 }
 
@@ -458,5 +459,25 @@ nav ul {
 .btn:hover {
     background-color: #222;
     color: #eeeeee;
-    /* Rest of your hover styles */
 }
+
+
+
+
+.box input[type="radio"] { 
+    width: 1.5em; 
+    height: 1.5em; 
+    border: 2px solid #222; 
+    accent-color: #222;
+    margin-right: 5px;
+    margin-left: 15px;
+}
+
+.box input[type="radio"]:checked {
+    background-color: #222; 
+}
+
+.box input[type="radio"] {
+    margin-bottom: 2.5em; 
+}
+
