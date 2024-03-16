@@ -31,42 +31,30 @@
 </body>
 
 <body>
-<div class="main center">
-    <div class="box">
-        <h2>Select Level</h2>
-        <ul>
-            <li data-value="1" class="level-option">Level 1</li>
-            <li data-value="2" class="level-option">Level 2</li>
-            <li data-value="3" class="level-option">Level 3</li>
-        </ul>
-    </div>
-    <div class="box">
-        <h2>Challenges</h2>
-        <ul>
-            <li data-value="timer" class="challenge-option">Timer</li>
-            <li data-value="none" class="challenge-option selected">None</li>
-        </ul>
-    </div>
-
-    <div class="input-and-button-container">
-        <div class="input-wrapper">
-            <input type="text" id="username" required autocomplete="off"/>
-            <label for="username">Your Name</label>
-            <div class="underline"></div>
+<form id="selectionForm" action="/select" method="post">
+    <div class="main center">
+        <div class="box">
+            <h2>Select Level</h2>
+            <ul>
+                <input type="radio" name="level" value="1"> Level 1<br>
+                <input type="radio" name="level" value="2"> Level 2<br>
+                <input type="radio" name="level" value="3"> Level 3<br>
+            </ul>
         </div>
-        <div class="start-button-container">
-            <button class="btn" onclick="submitSelection()">Start Game</button>
+        <div class="box">
+            <h2>Challenges</h2>
+            <ul>
+                <input type="radio" name="challenge" value="timer"> Timer<br>
+                <input type="radio" name="challenge" value="none"> None<br>
+            </ul>
+        </div>
 
+        <div class="input-and-button-container">
+            <div class="start-button-container">
+                <button type="submit" class="btn">Start Game</button>
+            </div>
         </div>
     </div>
-</div>
-
-
-<script>
-    function submitSelection() {
-        window.location.href='http://localhost:8000';
-    }
-
-</script>
+</form>
 </body>
 </html>
