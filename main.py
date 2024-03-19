@@ -220,9 +220,11 @@ async def main():
         screen.fill((0, 0, 255))
         text = font.render("Level: " + str(level), 1, (255, 255, 255))
         screen.blit(text, (0, 0))
-        if timer_on:
+        if timer_on == 1:
             text = font.render(" Time: " + str(max_timer - counter), 1, (255, 255, 255))
             screen.blit(text, (200, 0))
+            counter += 1
+        else :
             counter += 1
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -251,5 +253,4 @@ async def main():
 
 asyncio.run(main())
 update_maxlevel(level)
-
 
