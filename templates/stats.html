@@ -1,38 +1,69 @@
 {% include 'menu.html' %}
 
 <!doctype html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Stats</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Inline styles - consider moving these to your style.css for production */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0; /* Light grey background */
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+        }
+        .plots-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px; /* Adds space between the rows */
+        }
+        .plot-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Adds space between the images */
+        }
+        .plot-row img {
+            width: 100%;
+            max-width: 400px; /* Increased from 300px to make images larger */
+            border-radius: 8px; /* Adds rounded corners to the images */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adds a subtle shadow to the images */
+        }
+        .plot-top {
+            flex-direction: column;
+            align-items: center;
+        }
+        .decoration {
+            margin-top: 20px;
+            text-align: center;
+            color: #333; /* Darker text for contrast */
+        }
+    </style>
 </head>
-
 <body>
-    <div class="index-container">
-        <div class="tab-container">
-            <a href="{{ url_for('select') }}" class="card-index">
-                <div class="image-box">
-                    <img src="{{ url_for('static', filename='images/image1.png') }}" alt="Play Game">
-                </div>
-                <div class="content">
-                    <h2>Play Game</h2>
-                </div>
-            </a>
-            <a href="{{ url_for('stats') }}" class="card-index">
-                <div class="image-box">
-                    <img src="{{ url_for('static', filename='images/image2.png') }}" alt="Game Stats">
-                </div>
-                <div class="content">
-                    <h2>Game Stats</h2>
-                </div>
-            </a>
+    <div class="header">
+        <h1>Game Statistics</h1>
+    </div>
+
+    <div class="plots-container">
+        <div class="plot-row plot-top">
+            <img src="{{ url_for('static', filename='plots/plot1.png') }}" alt="Plot 1">
+        </div>
+        <div class="plot-row">
+            <img src="{{ url_for('static', filename='plots/plot2.png') }}" alt="Plot 2">
+            <img src="{{ url_for('static', filename='plots/plot3.png') }}" alt="Plot 3">
         </div>
     </div>
-</body>
 
-<body>
-    <img src="{{ url_for('static', filename='plots/plot1.png') }}" alt="Test Image" />
-    <img src="{{ url_for('static', filename='plots/plot2.png') }}" alt="Test Image" />
-    <img src="{{ url_for('static', filename='plots/plot3.png') }}" alt="Test Image" />
+    <div class="decoration">
+        <p>Explore your game's performance and trends!</p>
+    </div>
 </body>
-<html>
+</html>
