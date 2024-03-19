@@ -60,13 +60,16 @@ level = 1
 incorrect_guesses = 0
 bgd = pygame.Surface((80, 80))  # This covers the numbers...
 
-difficulty_file = "/Users/gimdong-gyu/Desktop/newProject16B/game_setting.csv" 
+#difficulty_file = "/Users/gimdong-gyu/Desktop/newProject16B/game_setting.csv" 
+difficulty_file = "game_setting.csv"
 
-difficulty = 1
-# with open(difficulty_file, 'r') as file:
-#     last_line = file.readlines()[-1]
-#     difficulty = int(last_line.split(',')[0]) 
-
+with open(difficulty_file, 'r') as file:
+    last_line = file.readlines()[-1]
+    difficulty = int(last_line.split(',')[0])
+    if last_line.split(',')[1] == 'timer\n' :
+        timer_on = 1
+    else :
+        timer_on = 0
 
 def hide_cards():
     for sprite in square_group:
@@ -95,7 +98,6 @@ def memory(sprite):
             reset_coord()
             incorrect_guesses += 1
             num_list = []
-            timer_on = 1
             square_group.update()
             screen.fill((255, 0, 0))
             pygame.display.flip()
@@ -128,7 +130,7 @@ def memory(sprite):
 
             for _ in range(difficulty): 
                 square_group.add(Square(len(square_group) + 1, make_image=False))
-            timer_on = 1
+
             max_timer += 10
             cards_visible = 1
             bgd.fill((255, 0, 0))
@@ -151,7 +153,6 @@ def memory(sprite):
                 save_game_data(game_data) 
                 loop = 0
             num_list = []
-            timer_on = 1
             cards_visible = 1
             screen.fill((255, 0, 0))
             game_data.append([level, "incorrect", time_spent])  # Save failed level data
@@ -170,7 +171,6 @@ def squares_init():
         square_group.add(Square(i))
 
 counter = 0
-timer_on = 1
 max_timer = 200
 cards_visible = 1
 level_start_time = 0  # Initialize level start time
@@ -244,7 +244,6 @@ async def main():
         if counter >= max_timer:
             #hide_cards()
             counter = 0
-            timer_on = 0
         pygame.display.update()
         clock.tick(20)
         await asyncio.sleep(0)
@@ -252,4 +251,5 @@ async def main():
 
 asyncio.run(main())
 update_maxlevel(level)
+
 
