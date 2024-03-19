@@ -13,17 +13,18 @@ square_group = pygame.sprite.Group() # Creating the grouping of the squares
 num_list = [] # Creating list to append the numbers of each square
 level = 1 # Setting level value
 incorrect_guesses = 0 # Setting amount of incorrect guesses currently made
-# difficulty_file = "game_setting.csv"
-difficulty = 1
+difficulty_file = "/Users/owensun/Downloads/PIC16B-Group-Project-main 5/game_setting.csv"
+#difficulty = 1
+timer_on = 1
 
 
-# with open(difficulty_file, 'r') as file:
-#     last_line = file.readlines()[-1]
-#     difficulty = int(last_line.split(',')[0])
-#     if last_line.split(',')[1] == 'timer\n' :
-#         timer_on = 1
-#     else :
-#         timer_on = 0
+with open(difficulty_file, 'r') as file:
+     last_line = file.readlines()[-1]
+     difficulty = int(last_line.split(',')[0])
+     if last_line.split(',')[1] == 'timer\n' :
+         timer_chosen = 1
+     else :
+         timer_chosen = 0
 
 def game_init():
     """
@@ -162,7 +163,7 @@ def squares_init():
         square_group.add(Square(i))
 
 counter = 0
-timer_on = 1
+#timer_on = 1
 max_timer = 200
 cards_visible = 1
 level_start_time = 0  # Initialize level start time
@@ -202,6 +203,7 @@ async def main():
     level_start_time = pygame.time.get_ticks()  # Starting timer for each level
 
     running = True
+    #timer_on = timer_chosen 
     
     while running:
         if incorrect_guesses >= 3:
@@ -219,7 +221,7 @@ async def main():
         text = font.render("Level: " + str(level), 1, (255, 255, 255)) # Displaying level 
         screen.blit(text, (0, 0)) # Blitting text at specific position
         
-        if timer_on:
+        if timer_chosen == 1 and timer_on == 1:
             text = font.render(" Time: " + str(max_timer - counter), 1, (255, 255, 255)) # Displaying timer
             screen.blit(text, (200, 0)) # Blitting text at specific position
             counter += 1
@@ -240,11 +242,10 @@ async def main():
 
         square_group.draw(screen)
 
-        if counter >= max_timer:
-            #hide_cards()
+        if counter >= max_timer and timer_chosen==1:
+            hide_cards()
             counter = 0
             timer_on = False
-            
         pygame.display.update()
         clock.tick(20)
         await asyncio.sleep(0) 
