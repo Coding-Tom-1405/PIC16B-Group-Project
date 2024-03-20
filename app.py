@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for
-import pandas as pd
-import seaborn as sns
-import plotly.express as px
 import os
 import csv
+from collections import defaultdict
+import plotly.graph_objects as go
+import pandas as pd
+import plotly.express as px
 
 app = Flask(__name__)
 
@@ -45,13 +46,25 @@ if not os.path.exists(PLOTS_DIR):
 
 @app.route('/stats')
 def stats():
-    file_path='game_data.csv'
+    file_path = 'game_data.csv'
 
     # Read the file line by line as a list of strings
     with open(file_path, 'r') as file:
         lines = file.readlines()
-
-    # Initialize a list to hold the maximum level for each trial
+    
+    # Process CSV to create DataFrame as before
+    parsed_data = []
+    with open(file_path, 'r') as file:
+        for line in file:
+            elements = line.strip().split(',')
+            for i in range(0, len(elements), 3):
+                try:
+                    level = int(elements[i])
+                    result = elements[i+1]
+                    time_spent = float(elements[i+2])
+                    parsed_data.append([level, result, time_spent])
+                except ValueError:
+                    print(f"Skipping malformed line: {line.strip()}")
     max_levels = []
 
     # Parse each line
@@ -66,52 +79,41 @@ def stats():
         if levels:  # Ensure the list is not empty
             max_levels.append(max(levels))
 
-    # Create a DataFrame from the maximum levels
+    df = pd.DataFrame(parsed_data, columns=['Level', 'Result', 'Time Spent'])
     level_data_custom = pd.DataFrame({'Level': max_levels})
 
-    import plotly.express as px
-
-    # Assuming level_data_custom is already defined as in your snippet
-    fig = px.histogram(level_data_custom, x='Level',
+    fig1 = px.histogram(level_data_custom, x='Level',
                         nbins=19, # Number of bins
                         color_discrete_sequence=['skyblue']) # Color
-    fig.update_traces(xbins=dict(start=0.5, end=20.5, size=1)) # Ensuring bins cover integer values correctly
-    fig.update_layout(title_text='Game Statistics - Custom Processing',
+    fig1.update_traces(xbins=dict(start=0.5, end=20.5, size=1)) # Ensuring bins cover integer values correctly
+    fig1.update_layout(title_text='Game Statistics - Custom Processing',
                   xaxis_title_text='Level',
                   yaxis_title_text='Count',
                   bargap=0.2) # Adjust the gap between bars if needed
-    fig.show()
+    fig1.write_image(f"{PLOTS_DIR}/plot1_plotly.png")
+    fig1.show()
 
-    # For saving the figure
-    fig.write_image(f"{PLOTS_DIR}/plot1_plotly.png")
-
-
-
-    # Assuming avg_time_spent is already calculated as in your snippet
+    # Plot 2: Average Time Spent per Level for Correct vs Incorrect Attempts
     avg_time_spent = df.groupby(['Level', 'Result'])['Time Spent'].mean().reset_index()
-    fig = px.bar(avg_time_spent.reset_index(), x='Level', y=['correct', 'incorrect'],
-             labels={'value':'Average Time Spent (seconds)', 'variable':'Result'})
-    fig.update_layout(title_text='Average Time Spent per Level',
-                  xaxis_title_text='Level',
-                  yaxis_title_text='Average Time Spent (seconds)',
-                  barmode='group')
-    fig.show()
+    fig2 = go.Figure()
+    for result in avg_time_spent['Result'].unique():
+        df_filtered = avg_time_spent[avg_time_spent['Result'] == result]
+        fig2.add_trace(go.Bar(x=df_filtered['Level'], y=df_filtered['Time Spent'], name=result))
+    fig2.update_layout(title_text='Average Time Spent per Level', xaxis_title='Level', yaxis_title='Average Time Spent (seconds)', barmode='group')
+    fig2.show()
+    fig2.write_image(f"{PLOTS_DIR}/plot2_plotly.png")
 
-    # For saving the figure
-    fig.write_image(f"{PLOTS_DIR}/plot2_plotly.png")
+    # Plot 3: Success Rate per Level
+    success_rate = df[df['Result'] == 'correct'].groupby('Level')['Result'].count() / df.groupby('Level')['Result'].count() * 100
+    success_rate = success_rate.reset_index(name='Success Rate')
+    fig3 = go.Figure(data=go.Bar(x=success_rate['Level'], y=success_rate['Success Rate'], marker_color='blue'))
+    fig3.update_layout(title_text='Success Rate per Level', xaxis_title='Level', yaxis_title='Success Rate (%)')
+    fig3.show()
+    fig3.write_image(f"{PLOTS_DIR}/plot3_plotly.png")
 
-
-    # Assuming success_rate is already calculated as in your snippet
-    fig = px.bar(success_rate, x=success_rate.index, y='Success Rate',
-             labels={'Success Rate':'Success Rate (%)'})
-    fig.update_layout(title_text='Success Rate per Level',
-                  xaxis_title_text='Level',
-                  yaxis_title_text='Success Rate (%)')
-    fig.show()
-
-    # For saving the figure
-    fig.write_image(f"{PLOTS_DIR}/plot3_modified_plotly.png")
     return render_template('stats.html')
+    
+
 
 
 if __name__ == "__main__":
