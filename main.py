@@ -429,7 +429,6 @@ asyncio.run(main())
 #         if win:
 #             print("Correct! You Passed Level ", level)
 #             print("--------------------------------")
-#             level += 1                            # Increasing level by 1
 #             reset_coord()                         
 #             num_list = []
 #             for i in range(difficulty):           # Adding number of squares equal to difficulty chosen
@@ -441,7 +440,8 @@ asyncio.run(main())
 #             pygame.time.wait(500)                 # Extending green screen for 1000 milliseconds
 #             game_data.append([level, 
 #                               "incorrect", 
-#                               time_spent])        # Append round results to game_data            
+#                               time_spent])        # Append round results to game_data  
+#             level += 1                            # Increasing level by 1
          
 
 #         # Win Not Met Situation
@@ -564,6 +564,8 @@ asyncio.run(main())
 #     pygame.quit()
     
 # main()
+
+
 
 
 
