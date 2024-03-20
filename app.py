@@ -121,12 +121,11 @@ def confirm():
     selected_level, selected_challenge = read_from_csv()
     return render_template("confirm.html", level=selected_level, challenge=selected_challenge)
 
-
 # Directory to save plots for page stats
 PLOTS_DIR = 'static/plots'
 if not os.path.exists(PLOTS_DIR):
     os.makedirs(PLOTS_DIR)
-
+    
 @app.route('/stats')
 def stats():
     """
@@ -140,7 +139,7 @@ def stats():
     # Read the file line by line as a list of strings
     with open(file_path, 'r') as file:
         lines = file.readlines()
-    
+
     # Initialize a list to store parsed CSV data
     parsed_data = []
     # Read the CSV file again to parse its content
@@ -156,9 +155,9 @@ def stats():
                     parsed_data.append([level, result, time_spent])
                 except ValueError:
                     print(f"Skipping malformed line: {line.strip()}")
-    
+
     max_levels = []  # List to store maximum levels reached in each game
-    
+
     # Process each line to extract maximum levels
     for line in lines:
         fields = line.strip().split(',')
@@ -216,4 +215,4 @@ def stats():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug = True)
