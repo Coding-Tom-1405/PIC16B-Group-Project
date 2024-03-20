@@ -15,4 +15,12 @@ Level,Result,Time Spent,Level,Result,Time Spent,Level,Result,Time Spent,Level,Re
 1,correct,2.238,2,correct,2.855,3,correct,3.107,4,correct,4.328,5,correct,5.532,6,correct,5.897,7,incorrect,15.79,7,incorrect,63.606,7,correct,73.003,8,incorrect,26.57
 1,correct,10.977,2,correct,2.388,3,incorrect,1.686,3,correct,6.002,4,correct,6.614,5,incorrect,29.396,5,incorrect,31.381
 1,correct,1.841,2,correct,2.083,3,correct,2.847,4,correct,4.171,5,incorrect,7.92,5,correct,14.205,6,incorrect,22.247,6,incorrect,33.581
-1,correct,1.982,2,correct,2.196,3,correct,3.872,4,correct,3.664,5,correct,5.095,6,incorrect,1.432,6,incorrect,20.724,6,incorrect,22.045
+1,correct,1.982,2,correct,2.196,3,correct,3.872,4,correct,3.664,5,correct,5.095,6,incorrect,1.432,6,incorrect,20.724,6,incorrect,22.0451,correct,8.536,2,correct,1.872,3,correct,3.424,4,correct,4.183,5,incorrect,3.385,5,incorrect,4.897,5,incorrect,6.815
+1,correct,2.575,2,correct,2.228,3,correct,2.477,4,correct,5.251,5,incorrect,1.671,5,incorrect,9.497,5,incorrect,13.035
+1,correct,10.352,2,correct,4.707,3,correct,2.475,4,correct,4.297,5,correct,11.007,6,incorrect,4.848,6,incorrect,16.767,6,incorrect,25.891
+1,correct,6.8,2,correct,2.122,3,correct,3.499,4,incorrect,4.497,4,correct,10.87,5,incorrect,7.238,5,incorrect,14.128
+1,correct,4.509,2,correct,1.93,3,correct,3.133,4,correct,7.881,5,correct,12.029,6,incorrect,14.769,6,incorrect,23.009,6,incorrect,36.481
+1,correct,2.993,2,correct,1.821,3,correct,2.679,4,correct,5.475,5,correct,9.603,6,incorrect,7.23,6,incorrect,11.227,6,incorrect,13.35
+1,correct,1.811,2,correct,1.966,3,correct,3.278,4,correct,5.284,5,correct,11.731,6,correct,29.292,7,incorrect,12.124,7,incorrect,20.929,7,incorrect,41.455
+1,correct,4.796,2,correct,1.624,3,correct,3.537,4,correct,4.494,5,correct,8.632,6,correct,23.526,7,incorrect,25.566,7,incorrect,34.692,7,incorrect,90.998
+1,correct,2.021,2,correct,3.443,3,correct,3.287,4,correct,5.479,5,correct,10.463,6,incorrect,8.27,6,incorrect,13.118,6,incorrect,17.761
