@@ -1,30 +1,28 @@
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory, jsonify
+from flask import Flask, render_template, request, redirect, url_for
 import pandas as pd
 import seaborn as sns
-import matplotlib.pyplot as plt
+import plotly.express as px
 import os
 import csv
-import plotly.express as px
-from plotly.io import to_html
-
-
-
-import matplotlib
-matplotlib.use('Agg')  # Use the 'Agg' backend, which works well with saving files.
-
 
 app = Flask(__name__)
-
-@app.route("/")
-def homepage():
-    return render_template('homepage.html')
-
-
 
 def write_to_csv(level, challenge):
     with open('game_setting.csv', 'a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow([level, challenge])
+
+difficulty_file = "game_setting.csv"
+
+def read_from_csv():
+    with open(difficulty_file, 'r') as file:
+        last_line = file.readlines()[-1]
+        difficulty, time = last_line.strip().split(',')
+        return int(difficulty), time
+        
+@app.route("/")
+def homepage():
+    return render_template('homepage.html')
 
 @app.route("/select", methods=['GET', 'POST'])
 def select():
@@ -35,21 +33,10 @@ def select():
         return redirect('/confirm')
     return render_template('select.html')
 
-
-difficulty_file = "game_setting.csv"
-
-def read_from_csv():
-    with open(difficulty_file, 'r') as file:
-        last_line = file.readlines()[-1]
-        difficulty, time = last_line.strip().split(',')
-        return int(difficulty), time
-
-
 @app.route("/confirm")
 def confirm():
     selected_level, selected_challenge = read_from_csv()
     return render_template("confirm.html", level=selected_level, challenge=selected_challenge)
-
 
 # Directory to save plots for page stats
 PLOTS_DIR = 'static/plots'
