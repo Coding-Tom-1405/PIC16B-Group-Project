@@ -7,15 +7,17 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="welcome-container">
+    <div class="welcome-container">  <!-- Container for the welcome section -->
         <div class="title">
+            <!-- Animated title with delayed effect -->
             <span style="--delay:0s;">Welcome to</span>
             <br/>
             <span style="--delay:0.2s;">Chimp Test Game</span>
         </div>
         <p class="game-description">The chimpanzee memory test is a cognitive task designed to assess the memory capabilities of chimpanzees. In this test, participants are presented with a sequence number, which they must remember and recall in the correct order. The test aims to evaluate the capacity of the participants' short term memory.</p>
-        <div class="tab-container">
-
+        
+        <div class="tab-container">  <!-- Container for navigation tabs/cards -->
+            <!-- Card for playing game. Add redirect to the game select page. -->
             <a href="{{ url_for('select') }}" class="card">
                 <div class="image-box">
                     <img src="{{ url_for('static', filename='images/image1.png') }}" alt="Play Game">
@@ -25,6 +27,7 @@
                 </div>
             </a>
             
+            <!-- Card for viewing stats. Add redirect to the game stats page. -->
             <a href="{{ url_for('stats') }}" class="card">
                 <div class="image-box">
                     <img src="{{ url_for('static', filename='images/image2.png') }}" alt="Game Stats">
