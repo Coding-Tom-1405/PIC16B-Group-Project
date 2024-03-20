@@ -8,8 +8,9 @@
 </head>
 
 <body>
-    <div class="index-container">
-        <div class="tab-container">
+    <!-- Same but smaller version of the cards in the main page -->
+    <div class="index-container">  
+        <div class="tab-container">  
             <a href="{{ url_for('select') }}" class="card-index">
                 <div class="image-box">
                     <img src="{{ url_for('static', filename='images/image1.png') }}" alt="Play Game">
@@ -31,10 +32,10 @@
 </body>
 
 <body>
-<form id="selectionForm" action="/select" method="post">
+<form id="selectionForm" action="/select" method="post">  <!-- Form for submitting game selection options, posts data to /select -->
     <div class="main center">
         <div class="box">
-            <h2>Select Level</h2>
+            <h2>Select Level</h2>  <!-- Section game level -->
             <ul>
                 <input type="radio" name="level" value="1"> Level 1<br>
                 <input type="radio" name="level" value="2"> Level 2<br>
@@ -42,15 +43,15 @@
             </ul>
         </div>
         <div class="box">
-            <h2>Challenges</h2>
+            <h2>Challenges</h2>  <!-- Section game challenges -->
             <ul>
                 <input type="radio" name="challenge" value="timer"> Timer<br>
                 <input type="radio" name="challenge" value="none"> None<br>
             </ul>
         </div>
 
-        <div class="input-and-button-container">
-            <div class="start-button-container">
+        <div class="input-and-button-container">  <!-- Container for the submit button -->
+            <div class="start-button-container">  
                 <button type="submit" class="btn">Confirm</button>
             </div>
         </div>
@@ -58,4 +59,7 @@
 </form>
 </body>
 </html>
+
+    
+
 
