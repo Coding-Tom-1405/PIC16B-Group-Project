@@ -11,3 +11,8 @@ Level,Result,Time Spent,Level,Result,Time Spent,Level,Result,Time Spent,Level,Re
 1,correct,1.569,2,correct,2.485,3,correct,4.06,4,correct,6.135,5,incorrect,5.678,5,incorrect,11.244,5,incorrect,13.979
 1,correct,5.88,2,correct,2.074,3,incorrect,4.548,3,incorrect,8.137,3,incorrect,12.176
 1,correct,3.73,2,correct,1.823,3,correct,2.122,4,incorrect,1.675,4,incorrect,2.838,4,incorrect,4.255
+1,correct,1.682,2,correct,2.289,3,correct,4.788,4,correct,4.622,5,correct,9.757,6,correct,20.585,7,incorrect,11.532,7,incorrect,19.45,7,correct,42.765,8,correct,30.652,9,correct,39.883,10,correct,56.823,11,incorrect,8.178
+1,correct,2.238,2,correct,2.855,3,correct,3.107,4,correct,4.328,5,correct,5.532,6,correct,5.897,7,incorrect,15.79,7,incorrect,63.606,7,correct,73.003,8,incorrect,26.57
+1,correct,10.977,2,correct,2.388,3,incorrect,1.686,3,correct,6.002,4,correct,6.614,5,incorrect,29.396,5,incorrect,31.381
+1,correct,1.841,2,correct,2.083,3,correct,2.847,4,correct,4.171,5,incorrect,7.92,5,correct,14.205,6,incorrect,22.247,6,incorrect,33.581
+1,correct,1.982,2,correct,2.196,3,correct,3.872,4,correct,3.664,5,correct,5.095,6,incorrect,1.432,6,incorrect,20.724,6,incorrect,22.045
