@@ -1,14 +1,19 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory, jsonify
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 import os
 import csv
-from collections import defaultdict
-import plotly.graph_objects as go
-import pandas as pd
 import plotly.express as px
+from plotly.io import to_html
+import matplotlib
+matplotlib.use('Agg')  # Use the 'Agg' backend, which works well with saving files.
 
-app = Flask(__name__)
 
 def write_to_csv(level, challenge):
+    """
+    Save the selected game level and timer option to a CSV file.
+    """
     with open('game_setting.csv', 'a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow([level, challenge])
@@ -16,17 +21,29 @@ def write_to_csv(level, challenge):
 difficulty_file = "game_setting.csv"
 
 def read_from_csv():
+    """
+    Read the most recent game setting (level and timer) from the CSV file.
+    """
     with open(difficulty_file, 'r') as file:
         last_line = file.readlines()[-1]
         difficulty, time = last_line.strip().split(',')
         return int(difficulty), time
-        
+
+
+app = Flask(__name__)
+
 @app.route("/")
 def homepage():
+    """
+    Render the homepage of the web.
+    """
     return render_template('homepage.html')
 
 @app.route("/select", methods=['GET', 'POST'])
 def select():
+    """
+    Get and store the game level and challenge options.
+    """
     if request.method == 'POST':
         selected_level = request.form.get("level")
         selected_challenge = request.form.get("challenge")
@@ -36,8 +53,12 @@ def select():
 
 @app.route("/confirm")
 def confirm():
+    """
+    Render the confirm page with the last selected game settings.
+    """
     selected_level, selected_challenge = read_from_csv()
     return render_template("confirm.html", level=selected_level, challenge=selected_challenge)
+
 
 # Directory to save plots for page stats
 PLOTS_DIR = 'static/plots'
