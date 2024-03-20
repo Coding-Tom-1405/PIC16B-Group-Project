@@ -65,7 +65,7 @@ def confirm():
 PLOTS_DIR = 'static/plots'
 if not os.path.exists(PLOTS_DIR):
     os.makedirs(PLOTS_DIR)
-    
+
 @app.route('/stats')
 def stats():
     """
@@ -79,7 +79,7 @@ def stats():
     # Read the file line by line as a list of strings
     with open(file_path, 'r') as file:
         lines = file.readlines()
-
+    
     # Initialize a list to store parsed CSV data
     parsed_data = []
     # Read the CSV file again to parse its content
@@ -95,9 +95,9 @@ def stats():
                     parsed_data.append([level, result, time_spent])
                 except ValueError:
                     print(f"Skipping malformed line: {line.strip()}")
-
+    
     max_levels = []  # List to store maximum levels reached in each game
-
+    
     # Process each line to extract maximum levels
     for line in lines:
         fields = line.strip().split(',')
@@ -119,7 +119,7 @@ def stats():
                   xaxis_title_text='Level',
                   yaxis_title_text='Count',
                   bargap=0.2)
-    fig1.write_image(f"{PLOTS_DIR}/plot1_plotly.png")  # Saves the histogram as an image file in a specified directory.
+    # fig1.write_image(f"{PLOTS_DIR}/plot1_plotly.png")  # Saves the histogram as an image file in a specified directory.
     fig1.show()  # Displays the plot in the Flask web application interface.
 
     # Plot 2: Average Time Spent per Level for Correct vs Incorrect Attempts
@@ -136,7 +136,7 @@ def stats():
                    yaxis_title='Average Time Spent (seconds)',
                    barmode='group')
     fig2.show()  # Displays the plot.
-    fig2.write_image(f"{PLOTS_DIR}/plot2_plotly.png")  # Saves the plot as an image file.
+    # fig2.write_image(f"{PLOTS_DIR}/plot2_plotly.png")  # Saves the plot as an image file.
 
     # Plot 3: Success Rate per Level
     # Calculates the success rate per level by dividing the number of correct results by the total number of attempts.
@@ -148,11 +148,11 @@ def stats():
                    xaxis_title='Level',
                    yaxis_title='Success Rate (%)')
     fig3.show()  # Displays the plot.
-    fig3.write_image(f"{PLOTS_DIR}/plot3_plotly.png")  # Saves the plot as an image file.
+    # fig3.write_image(f"{PLOTS_DIR}/plot3_plotly.png")  # Saves the plot as an image file.
 
 
     return render_template('stats.html')
 
 
 if __name__ == "__main__":
-    app.run(debug = True)
+    app.run(debug=True)
